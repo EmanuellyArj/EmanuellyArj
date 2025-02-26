@@ -493,32 +493,33 @@ End Sub
 
 ````
 
-## Conciliação Fiscal: Tributação de ICMS e IPI 
+# 📊 Conciliação Fiscal: Tributário de ICMS e IPI
 
-Este projeto consiste em macros em VBA que automatizam tarefas fiscais no Excel, otimizando o processo de importação e conciliação de dados contábeis. Através da automação de processos, o projeto elimina a fragmentação de dados e reduz significativamente o tempo gasto com tarefas manuais e retrabalhos.
+## 💡 Visão Geral
+Este projeto automatiza a conciliação fiscal dos impostos ICMS e IPI no Excel, utilizando macros em VBA para otimizar o processo de importação e verificação de dados contábeis. A automação reduz significativamente o tempo gasto com tarefas manuais e minimiza erros, garantindo maior precisão e controle.
 
-## Problema
+## 🚨 O Problema
+Antes da automação, a conciliação fiscal apresentava diversos desafios:
 
-A conciliação de impostos de ICMS e IPI enfrentava diversos desafios, tais como:
+- Processo manual demorado: A conciliação demandava, em média, 2 horas mensais por empresa.
+- Retrabalho constante: Para evitar erros e multas, o processo precisava ser revisado por pelo menos duas pessoas, tornando-o moroso e custoso.
+- Falta de padronização: Lánçamentos contábeis eram realizados sem regras formalizadas, aumentando o risco de inconsistências.
+- Multas e perdas financeiras: Erros frequentes geravam penalizações e custos adicionais.
 
-- **Processos Manuais Demorados:**  
-  - A conciliação demandava, em média, 2 hora mensal por empresa.
-- **Retrabalho :** Para evitar erros e multas esse processo era revisado por no 2 pessoas, o que se tornava muito moroso e custoso.
-- **Ausência de Regras Documentadas:** Os lançamentos contábeis eram realizados manualmente sem regras formalizadas, o que aumentava o risco de erros.
-- **Multas :** Por falta de padronização, acabavam acontecendo erros, o que gerava um volume alto de perdas financeiras
+## ✅ A Solução
+Foi desenvolvida uma macro em VBA que automatiza e padroniza a conciliação fiscal, garantindo eficiência e segurança. O código:
+- Executa formatação e organização das planilhas de ICMS e IPI, eliminando linhas desnecessárias e ajustando os formatos.
+- Consolida e calcula automaticamente os valores de ICMS e IPI na planilha MEMÓRIA, garantindo precisão nos dados.
+- Elimina retrabalho ao automatizar validações e atualizações, reduzindo a necessidade de revisões manuais.
+- Gera relatórios detalhados, facilitando auditorias e análises.
 
-## Solução
+##🔧 Tecnologias Utilizadas
 
-O projeto implementa melhorias significativas por meio da automação com VBA:
+- VBA (Visual Basic for Applications) para automação no Excel.
+- Estruturas de controle e tratamento de erros para garantir a integridade dos dados.
+- Proteção de planilhas para evitar edições indevidas.
 
-- **Automação de Processos:**  
-  - **Macro 1:** 
-  - **Macro 2:** 
-- **Eliminação do Retrabalho:** Com a centralização e a automação, todas as atualizações e validações são realizadas de forma rápida e precisa, eliminando a necessidade de processos manuais.
-
-## Macros
-
-### Macro 1: 
+### Macro : 
 
 ```vba
 Sub MacroUnificada()

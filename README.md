@@ -2,7 +2,7 @@
 
 **`Analista de Dados`**
 
-Profissional com 5+ anos de experiência em análise de dados, otimização de processos e melhoria continua. Especializado em transformar dados em insights estratégicos com Power BI, VBA, SQL e Python. Especilização em Data Science (PUCRS), Especialização em Controladoria e Finanças (UP), Graduação em Administração (UFPR), Graduação em Ciências Econômicas (UFPR). Atuei em projetos que reduziram custos em até 30% e aumentaram a eficiência operacional em 60%. Domínio avançado de metodologias ágeis e foco em soluções escaláveis para ambientes de alta complexidade.
+Sou uma profissional apaixonada por transformar dados em insights estratégicos, com uma trajetória que une formações e experiências complementares. Minha base acadêmica em Ciências Econômicas e Administração, obtida na UFPR, aliada a um MBA em Finanças e à especialização em Data Science (em andamento), me proporciona uma visão única e integrada dos negócios. Essa combinação não convencional me permite entender, de forma holística, tanto os desafios operacionais quanto as oportunidades estratégicas que os dados oferecem. Ao longo da minha carreira, tenho atuado na transformação digital de processos, integrando sistemas e criando soluções inovadoras que conectam áreas diversas e promovem uma cultura orientada por dados.
 
 ---
 
@@ -493,19 +493,18 @@ End Sub
 
 ````
 
-## Automação Contábil para Importações
+## Conciliação de Impostos Fiscal
 
-Este projeto consiste em macros em VBA que automatizam tarefas contábeis no Excel, otimizando o processo de importação e conciliação de dados contábeis. Através da centralização das informações e da automação de processos, o projeto elimina a fragmentação de dados e reduz significativamente o tempo gasto com tarefas manuais e retrabalhos.
+Este projeto consiste em macros em VBA que automatizam tarefas fiscais no Excel, otimizando o processo de importação e conciliação de dados contábeis. Através da automação de processos, o projeto elimina a fragmentação de dados e reduz significativamente o tempo gasto com tarefas manuais e retrabalhos.
 
 ## Problema
 
-A contabilização de importações enfrentava diversos desafios, tais como:
+A conciliação de impostos de ICMS e IPI enfrentava diversos desafios, tais como:
 
-- **Fragmentação de Dados:** Informações dispersas em 71 abas, distribuídas em 4 planilhas distintas, dificultando a localização de dados específicos.
 - **Processos Manuais Demorados:**  
-  - Atualização da taxa de câmbio demandava, em média, 4 horas mensais.  
-  - A busca por aquisições antigas consumia cerca de 20 minutos por operação.
-- **Retrabalho Acumulado:** De janeiro a agosto, foram registradas 14 horas de retrabalho.
+  - A conciliação demandava, em média, 2 hora mensal por empresa.
+- **Retrabalho :** Para evitar erros e multas esse processo era revisado por no 2 pessoas, o que se tornava muito moroso e custoso.
+- - **Multas :** Por falta de padronização, acabavam acontecendo erros, o que gerava um volume alto de perdas financeiras
 - **Ausência de Regras Documentadas:** Os lançamentos contábeis eram realizados manualmente sem regras formalizadas, o que aumentava o risco de erros.
 
 ## Solução

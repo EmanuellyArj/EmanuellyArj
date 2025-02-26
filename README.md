@@ -82,32 +82,31 @@ Sou uma profissional apaixonada por transformar dados em insights estratégicos,
 # Projetos Desenvolvidos
 
 
-## Automação Contábil para Importações
+# 📊 Automação Contábil para Importações
 
 Este projeto consiste em macros em VBA que automatizam tarefas contábeis no Excel, otimizando o processo de importação e conciliação de dados contábeis. Através da centralização das informações e da automação de processos, o projeto elimina a fragmentação de dados e reduz significativamente o tempo gasto com tarefas manuais e retrabalhos.
 
-## Problema
-
+## 🚨 Problema
 A contabilização de importações enfrentava diversos desafios, tais como:
 
-- **Fragmentação de Dados:** Informações dispersas em 71 abas, distribuídas em 4 planilhas distintas, dificultando a localização de dados específicos.
-- **Processos Manuais Demorados:**  
-  - Atualização da taxa de câmbio demandava, em média, 4 horas mensais.  
-  - A busca por aquisições antigas consumia cerca de 20 minutos por operação.
-- **Retrabalho Acumulado:** De janeiro a agosto, foram registradas 14 horas de retrabalho.
-- **Ausência de Regras Documentadas:** Os lançamentos contábeis eram realizados manualmente sem regras formalizadas, o que aumentava o risco de erros.
+- Fragmentação de Dados: Informações dispersas em 71 abas, distribuídas em 4 planilhas distintas, dificultando a localização de dados específicos.
+- Processos Manuais Demorados:
+- Atualização da taxa de câmbio demandava, em média, 4 horas mensais.
+- A busca por aquisições antigas consumia cerca de 20 minutos por operação.
+- Retrabalho Acumulado: De janeiro a agosto, foram registradas 14 horas de retrabalho.
+- Ausência de Regras Documentadas: Os lançamentos contábeis eram realizados manualmente sem regras formalizadas, o que aumentava o risco de erros.
 
-## Solução
-
+## ✅ Solução
 O projeto implementa melhorias significativas por meio da automação com VBA:
+Centralização de Informações: Consolidação dos dados em uma única planilha, permitindo a localização imediata dos registros por meio de filtros.
 
-- **Centralização de Informações:** Consolidação dos dados em uma única planilha, permitindo a localização imediata dos registros por meio de filtros.
-- **Automação de Processos:**  
-  - **Macro 1:** Automatiza a criação de lançamentos atualizados, realizando a identificação e processamento de registros, além de atualizar automaticamente as taxas de câmbio.  
-  - **Macro 2:** Realiza a conciliação dos lançamentos e gera relatórios prontos para importação no sistema contábil, integrando cálculos, histórico e tratamento de exceções.
-- **Eliminação do Retrabalho:** Com a centralização e a automação, todas as atualizações e validações são realizadas de forma rápida e precisa, eliminando a necessidade de processos manuais.
+## 🔧 Automação de Processos:
 
-## Macros
+Macro 1: Automatiza a criação de lançamentos atualizados, realizando a identificação e processamento de registros, além de atualizar automaticamente as taxas de câmbio.
+
+Macro 2: Realiza a conciliação dos lançamentos e gera relatórios prontos para importação no sistema contábil, integrando cálculos, histórico e tratamento de exceções.
+
+Eliminação do Retrabalho: Com a centralização e a automação, todas as atualizações e validações são realizadas de forma rápida e precisa, eliminando a necessidade de processos manuais.
 
 ### Macro 1: Criação de lançamentos atualizados automáticos
 

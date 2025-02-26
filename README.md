@@ -493,7 +493,7 @@ End Sub
 
 ````
 
-## Conciliação de Impostos Fiscal
+## Conciliação Fiscal: Tributação de ICMS e IPI 
 
 Este projeto consiste em macros em VBA que automatizam tarefas fiscais no Excel, otimizando o processo de importação e conciliação de dados contábeis. Através da automação de processos, o projeto elimina a fragmentação de dados e reduz significativamente o tempo gasto com tarefas manuais e retrabalhos.
 
@@ -504,14 +504,13 @@ A conciliação de impostos de ICMS e IPI enfrentava diversos desafios, tais com
 - **Processos Manuais Demorados:**  
   - A conciliação demandava, em média, 2 hora mensal por empresa.
 - **Retrabalho :** Para evitar erros e multas esse processo era revisado por no 2 pessoas, o que se tornava muito moroso e custoso.
-- - **Multas :** Por falta de padronização, acabavam acontecendo erros, o que gerava um volume alto de perdas financeiras
 - **Ausência de Regras Documentadas:** Os lançamentos contábeis eram realizados manualmente sem regras formalizadas, o que aumentava o risco de erros.
+- **Multas :** Por falta de padronização, acabavam acontecendo erros, o que gerava um volume alto de perdas financeiras
 
 ## Solução
 
 O projeto implementa melhorias significativas por meio da automação com VBA:
 
-- **Centralização de Informações:** Consolidação dos dados em uma única planilha, permitindo a localização imediata dos registros por meio de filtros.
 - **Automação de Processos:**  
   - **Macro 1:** Automatiza a criação de lançamentos atualizados, realizando a identificação e processamento de registros, além de atualizar automaticamente as taxas de câmbio.  
   - **Macro 2:** Realiza a conciliação dos lançamentos e gera relatórios prontos para importação no sistema contábil, integrando cálculos, histórico e tratamento de exceções.

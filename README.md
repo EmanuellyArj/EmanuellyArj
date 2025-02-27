@@ -521,189 +521,165 @@ Foi desenvolvida uma macro em VBA que automatiza e padroniza a conciliação fis
 ### Macro : 
 
 ```vba
-Sub MacroUnificada()
-    Dim ws As Worksheet, cell As Range, headerRange As Range
-    Dim sheetNames As Variant, shtName As Variant
-    Dim novoValor As String, partes() As String
-    Dim wsMemoria As Worksheet, wsICMS As Worksheet, wsIPI As Worksheet, wsRef As Worksheet
-    Dim lastRowMemoria As Long, lastRowICMS As Long, lastRowIPI As Long, lastRowRef As Long
-    Dim i As Long, j As Long, valorICMS As Variant, valorIPI As Variant, valorRef As Variant
-    Dim igualEncontrado As Boolean, palavrasPermitidas As Variant, cfopParaVerificar As Variant
-    Dim lastRow As Long
-
-    ' Passo 1 e 2 - Processamento das planilhas IPI e ICMS
-    sheetNames = Array("IPI", "ICMS")
-    For Each shtName In sheetNames
-        On Error Resume Next
-        Set ws = ThisWorkbook.Sheets(shtName)
-        On Error GoTo 0
-        
-        If ws Is Nothing Then
-            MsgBox "A planilha '" & shtName & "' não foi encontrada!", vbExclamation
-            Exit Sub
-        End If
-        
-        ' Remove linha 1 e formata cabeçalho
-        ws.Rows(1).Delete
-        With ws.Range("A1:F1")
-            .Font.Bold = True
-            .Interior.Color = RGB(173, 216, 230)
-        End With
-        
-        ' Processa dados da coluna A
-        For Each cell In ws.Range("A1:A" & ws.Cells(ws.Rows.Count, "A").End(xlUp).Row)
-            If Not IsEmpty(cell.Value) Then
-                novoValor = Replace(cell.Value, ".", "")
+Sub ExecutarTodasMacros()
+    '======================================================================
+    ' PASSO 1 - Processamento da planilha IPI
+    '======================================================================
+    Dim ws As Worksheet
+    Dim cell As Range
+    Dim novoValor As String
+    Dim partes() As String
+    
+    ' Processamento da planilha IPI
+    On Error Resume Next
+    Set ws = ThisWorkbook.Sheets("IPI")
+    On Error GoTo 0
+    
+    If ws Is Nothing Then
+        MsgBox "A planilha 'IPI' não foi encontrada!", vbExclamation
+        Exit Sub
+    End If
+    
+    ws.Rows(1).Delete
+    
+    With ws.Range("A1:F1")
+        .Font.Bold = True
+        .Interior.Color = RGB(173, 216, 230)
+    End With
+    
+    For Each cell In ws.Range("A1:A" & ws.Cells(ws.Rows.Count, "A").End(xlUp).Row)
+        If Not IsEmpty(cell.Value) Then
+            novoValor = Replace(cell.Value, ".", "")
+            
+            If InStr(novoValor, "-") > 0 Then
+                partes = Split(novoValor, "-")
                 
-                If InStr(novoValor, "-") > 0 Then
-                    partes = Split(novoValor, "-")
-                    If UBound(partes) = 1 Then
-                        If Len(Trim(partes(1))) = 1 Then
-                            novoValor = Trim(partes(0)) & " - 0" & Trim(partes(1))
-                        Else
-                            novoValor = Trim(partes(0)) & " - " & Trim(partes(1))
-                        End If
+                If UBound(partes) = 1 Then
+                    If Len(Trim(partes(1))) = 1 Then
+                        novoValor = Trim(partes(0)) & " - 0" & Trim(partes(1))
+                    Else
+                        novoValor = Trim(partes(0)) & " - " & Trim(partes(1))
                     End If
                 End If
+            End If
+            
+            cell.Value = novoValor
+            
+            If UCase(Trim(cell.Value)) = "TOTAL" Then
+                cell.Font.Bold = True
+                ws.Range(cell.Offset(0, 1), cell.Offset(0, 5)).Font.Bold = True
+            End If
+        End If
+    Next cell
+    
+    ws.Columns.ColumnWidth = 15
+
+    '======================================================================
+    ' PASSO 2 - Processamento da planilha ICMS
+    '======================================================================
+    Set ws = ThisWorkbook.Sheets("ICMS")
+    ws.Rows(1).Delete
+    
+    With ws.Range("A1:F1")
+        .Font.Bold = True
+        .Interior.Color = RGB(173, 216, 230)
+    End With
+    
+    For Each cell In ws.Range("A1:A" & ws.Cells(ws.Rows.Count, "A").End(xlUp).Row)
+        If Not IsEmpty(cell.Value) Then
+            novoValor = Replace(cell.Value, ".", "")
+            
+            If InStr(novoValor, "-") > 0 Then
+                partes = Split(novoValor, "-")
                 
-                cell.Value = novoValor
-                If UCase(Trim(cell.Value)) = "TOTAL" Then
-                    cell.Font.Bold = True
-                    ws.Range(cell.Offset(0, 1), cell.Offset(0, 5)).Font.Bold = True
+                If UBound(partes) = 1 Then
+                    If Len(Trim(partes(1))) = 1 Then
+                        novoValor = Trim(partes(0)) & " - 0" & Trim(partes(1))
+                    Else
+                        novoValor = Trim(partes(0)) & " - " & Trim(partes(1))
+                    End If
                 End If
             End If
-        Next cell
-        
-        ws.Columns.ColumnWidth = 15
-    Next shtName
-
-    ' Passo 3 - Processamento da planilha MEMORIA
-    Set wsMemoria = ThisWorkbook.Sheets("MEMORIA")
-    Set wsICMS = ThisWorkbook.Sheets("ICMS")
-    Set wsIPI = ThisWorkbook.Sheets("IPI")
-    Set wsRef = ThisWorkbook.Sheets("Ref")
+            
+            cell.Value = novoValor
+            
+            If UCase(Trim(cell.Value)) = "TOTAL" Then
+                cell.Font.Bold = True
+                ws.Range(cell.Offset(0, 1), cell.Offset(0, 5)).Font.Bold = True
+            End If
+        End If
+    Next cell
     
-    ' Ajuste inicial do cabeçalho
-    With wsMemoria
-        .Range("A1:K1").Value = Array("CFOP", "Descrição", "Valor Contábil", "Base de Cálculo", _
-            "Diferença", "Valor ICMS", "Valor IPI", "ICMS - IPI", "Diferença Ajustada", "Observação", "Observação 2")
-        .Range("A1:K1").Font.Bold = True
-        .Range("A1:K1").Interior.Color = RGB(173, 216, 230)
-        
-        ' Remove linhas desnecessárias
-        If .Cells(3, 1).Value <> "Saídas" Then
-            .Rows("2:3").Delete
-        Else
-            .Rows(2).Delete
-        End If
-    End With
+    ws.Columns.ColumnWidth = 15
 
-    ' Ajustes de formatação e conteúdo
-    lastRowMemoria = wsMemoria.Cells(wsMemoria.Rows.Count, 1).End(xlUp).Row
-    For i = lastRowMemoria To 4 Step -1
-        If wsMemoria.Cells(i, 1).Value = "Bases Extras Tributáveis" Then
-            wsMemoria.Rows(i & ":" & lastRowMemoria).Delete
-            Exit For
-        End If
-    Next i
-
-    ' Processamento de dados e formatações adicionais
-    ' (Aqui viriam os demais trechos do Passo3, ajustados para operar dentro da mesma sub)
-    ' [...] (Nota: Inclua aqui o restante do código do Passo3 mantendo a lógica original)
-
-    ' Ajustes finais
-    wsMemoria.Columns("A").ColumnWidth = 19
-    wsMemoria.Columns("B").ColumnWidth = 56
-    wsMemoria.Columns("C:K").ColumnWidth = 19
-    wsMemoria.Range("A1:K1").AutoFilter
-End Sub
-
-```
-
-### Macro 2: 
-
-```vba
-Sub Passo3() ' Nome alterado para "Passo3"
+    '======================================================================
+    ' PASSO 3 - Processamento da planilha MEMORIA
+    '======================================================================
     Dim wsMemoria As Worksheet
     Dim wsICMS As Worksheet
     Dim wsIPI As Worksheet
-    Dim wsRef As Worksheet ' Planilha "Ref"
+    Dim wsRef As Worksheet
     Dim lastRowMemoria As Long
     Dim lastRowICMS As Long
     Dim lastRowIPI As Long
-    Dim lastRowRef As Long ' Adicionando a variável para a última linha da planilha "Ref"
+    Dim lastRowRef As Long
     Dim i As Long
+    Dim j As Long
     Dim valorICMS As Variant
     Dim valorIPI As Variant
     Dim igualEncontrado As Boolean
     Dim palavrasPermitidas As Variant
     Dim cfopParaVerificar As Variant
+    Dim valorRef As Variant
+    Dim lastRow As Long
 
     Set wsMemoria = ThisWorkbook.Sheets("MEMORIA")
     Set wsICMS = ThisWorkbook.Sheets("ICMS")
     Set wsIPI = ThisWorkbook.Sheets("IPI")
-    Set wsRef = ThisWorkbook.Sheets("Ref") ' Ajustando para a planilha "Ref"
+    Set wsRef = ThisWorkbook.Sheets("Ref")
 
     lastRowMemoria = wsMemoria.Cells(wsMemoria.Rows.Count, 1).End(xlUp).Row
     lastRowICMS = wsICMS.Cells(wsICMS.Rows.Count, 1).End(xlUp).Row
     lastRowIPI = wsIPI.Cells(wsIPI.Rows.Count, 1).End(xlUp).Row
-    lastRowRef = wsRef.Cells(wsRef.Rows.Count, 1).End(xlUp).Row ' Última linha da planilha "Ref"
+    lastRowRef = wsRef.Cells(wsRef.Rows.Count, 1).End(xlUp).Row
 
-    ' Ajustando o cabeçalho
-    wsMemoria.Range("A1").Value = "CFOP"
-    wsMemoria.Range("B1").Value = "Descrição"
-    wsMemoria.Range("C1").Value = "Valor Contábil"
-    wsMemoria.Range("D1").Value = "Base de Cálculo"
-    wsMemoria.Range("E1").Value = "Diferença"
-    wsMemoria.Range("F1").Value = "Valor ICMS" ' Adicionando cabeçalho para a coluna F
-    wsMemoria.Range("G1").Value = "Valor IPI"   ' Adicionando cabeçalho para a coluna G
-    wsMemoria.Range("H1").Value = "ICMS - IPI"  ' Adicionando cabeçalho para a coluna H
-    wsMemoria.Range("I1").Value = "Diferença Ajustada" ' Adicionando cabeçalho para a coluna I
-    wsMemoria.Range("J1").Value = "Observação" ' Adicionando cabeçalho para a coluna J
-    wsMemoria.Range("K1").Value = "Observação 2" ' Adicionando cabeçalho para a coluna K
-
-    ' Formata o cabeçalho em negrito e azul clara
     With wsMemoria.Range("A1:K1")
+        .Value = Array("CFOP", "Descrição", "Valor Contábil", "Base de Cálculo", "Diferença", _
+                      "Valor ICMS", "Valor IPI", "ICMS - IPI", "Diferença Ajustada", "Observação", "Observação 2")
         .Font.Bold = True
-        .Interior.Color = RGB(173, 216, 230) ' Azul clara
+        .Interior.Color = RGB(173, 216, 230)
     End With
-    
-    ' Excluindo linhas 2 e 3, exceto se a linha 3 contiver "Saídas"
+
     If wsMemoria.Cells(3, 1).Value <> "Saídas" Then
         wsMemoria.Rows("2:3").Delete
     Else
         wsMemoria.Rows(2).Delete
     End If
 
-    Dim lastRow As Long
     lastRow = wsMemoria.Cells(wsMemoria.Rows.Count, 1).End(xlUp).Row
 
-    ' Loop para verificar a palavra "Entradas" e adicionar uma linha vazia acima
     For i = 4 To lastRow
         If wsMemoria.Cells(i, 1).Value = "Entradas" Then
-            wsMemoria.Rows(i).Insert Shift:=xlDown ' Adiciona uma linha vazia acima
-            lastRow = lastRow + 1 ' Atualiza o número total de linhas
-            wsMemoria.Cells(i, 1).Font.Bold = True ' Formata a palavra "Entradas" em negrito
-            Exit For ' Sai do loop após encontrar "Entradas"
+            wsMemoria.Rows(i).Insert
+            lastRow = lastRow + 1
+            wsMemoria.Cells(i, 1).Font.Bold = True
+            Exit For
         End If
     Next i
 
-    ' Excluindo a linha "Bases Extras Tributáveis" e todas as linhas abaixo
     For i = 4 To lastRow
         If wsMemoria.Cells(i, 1).Value = "Bases Extras Tributáveis" Then
             wsMemoria.Rows(i & ":" & lastRow).Delete
-            Exit For ' Sai do loop após deletar
+            Exit For
         End If
     Next i
 
-    ' Limpar palavras não permitidas na coluna A
     palavrasPermitidas = Array("Entradas", "Base Tributo Entrada", "Base Tributo", "Base Tributo Saída", "Saídas")
     cfopParaVerificar = Array("1253 - 01", "1407 - 01", "1556 - 01", "1556 - 09")
 
-    For i = 4 To lastRow
+    For i = 4 To wsMemoria.Cells(wsMemoria.Rows.Count, 1).End(xlUp).Row
         igualEncontrado = False
         
-        ' Verifica se há descrições iguais na coluna B
         For j = 4 To lastRow
             If wsMemoria.Cells(i, 2).Value = wsMemoria.Cells(j, 2).Value And i <> j Then
                 igualEncontrado = True
@@ -711,11 +687,8 @@ Sub Passo3() ' Nome alterado para "Passo3"
             End If
         Next j
 
-        ' Se não for uma palavra permitida
         If IsError(Application.Match(wsMemoria.Cells(i, 1).Value, palavrasPermitidas, 0)) Then
-            ' Verifica se o número deve ser mantido
             If Not igualEncontrado Then
-                ' Verifica se a célula contém um número no formato desejado
                 If Not wsMemoria.Cells(i, 1).Value Like "#### - ##" And _
                    Not wsMemoria.Cells(i, 1).Value Like "# - ##" And _
                    Not wsMemoria.Cells(i, 1).Value Like "#### - #" Then
@@ -723,169 +696,140 @@ Sub Passo3() ' Nome alterado para "Passo3"
                 End If
             End If
         Else
-            ' Mantém em negrito as palavras específicas
             If wsMemoria.Cells(i, 1).Value = "Entradas" Or wsMemoria.Cells(i, 1).Value = "Saídas" Then
                 wsMemoria.Cells(i, 1).Font.Bold = True
             End If
         End If
     Next i
 
-    ' Adiciona negrito para "Saídas"
     For i = 4 To lastRow
         If wsMemoria.Cells(i, 1).Value = "Saídas" Then
             wsMemoria.Cells(i, 1).Font.Bold = True
         End If
     Next i
 
-    ' Reorganizando valores nas colunas C e D
     For i = 4 To lastRow
-        ' Verifica se a linha não contém as palavras específicas
         If Not (wsMemoria.Cells(i, 1).Value = "Base Tributo Entrada" Or _
                 wsMemoria.Cells(i, 1).Value = "Base Tributo" Or _
                 wsMemoria.Cells(i, 1).Value = "Base Tributo Saída" Or _
                 wsMemoria.Cells(i, 1).Value = "Saídas") Then
             
-            ' Verifica se há número na coluna B
             If IsNumeric(Trim(wsMemoria.Cells(i, 2).Value)) Then
-                ' Move o número para a linha acima na coluna C
-                wsMemoria.Cells(i - 1, 3).Value = wsMemoria.Cells(i, 2).Value ' Move número para a linha acima na coluna C
-                wsMemoria.Cells(i, 2).ClearContents ' Limpa a coluna B na linha atual
+                wsMemoria.Cells(i - 1, 3).Value = wsMemoria.Cells(i, 2).Value
+                wsMemoria.Cells(i, 2).ClearContents
                 If IsNumeric(Trim(wsMemoria.Cells(i, 3).Value)) Then
-                    wsMemoria.Cells(i - 1, 4).Value = wsMemoria.Cells(i, 3).Value ' Move valor ao lado para a linha acima na coluna D
-                    wsMemoria.Cells(i, 3).ClearContents ' Limpa a coluna C na linha atual
+                    wsMemoria.Cells(i - 1, 4).Value = wsMemoria.Cells(i, 3).Value
+                    wsMemoria.Cells(i, 3).ClearContents
                 End If
             End If
         End If
     Next i
 
-    ' Mantém os valores ao lado das palavras específicas em negrito
     For i = 4 To lastRow
         If wsMemoria.Cells(i, 1).Value = "Base Tributo Entrada" Or _
            wsMemoria.Cells(i, 1).Value = "Base Tributo" Or _
            wsMemoria.Cells(i, 1).Value = "Base Tributo Saída" Or _
            wsMemoria.Cells(i, 1).Value = "Saídas" Then
-            wsMemoria.Cells(i, 1).Font.Bold = True ' Formata a palavra em negrito
-            wsMemoria.Cells(i, 2).Font.Bold = True ' Mantém o valor em negrito
+            wsMemoria.Cells(i, 1).Font.Bold = True
+            wsMemoria.Cells(i, 2).Font.Bold = True
         End If
     Next i
 
-    ' Adicionando diferença na coluna E
-    For i = 3 To lastRow ' Mudado para começar da linha 3
+    For i = 3 To lastRow
         If IsNumeric(wsMemoria.Cells(i, 3).Value) And IsNumeric(wsMemoria.Cells(i, 4).Value) Then
             wsMemoria.Cells(i, 5).Value = wsMemoria.Cells(i, 3).Value - wsMemoria.Cells(i, 4).Value
         Else
-            wsMemoria.Cells(i, 5).ClearContents ' Garante que a célula fique limpa se não for numérico
+            wsMemoria.Cells(i, 5).ClearContents
         End If
     Next i
 
-    ' Colorindo a coluna E se o valor for diferente de zero
-    For i = 3 To lastRow ' Mudado para começar da linha 3
+    For i = 3 To lastRow
         If wsMemoria.Cells(i, 5).Value <> 0 Then
-            wsMemoria.Cells(i, 5).Interior.Color = RGB(255, 255, 224) ' Amarelo claro
+            wsMemoria.Cells(i, 5).Interior.Color = RGB(255, 255, 224)
         Else
-            wsMemoria.Cells(i, 5).Interior.ColorIndex = xlNone ' Limpa a cor se for zero
+            wsMemoria.Cells(i, 5).Interior.ColorIndex = xlNone
         End If
     Next i
 
-    ' Adicionando valores da coluna D da planilha ICMS na coluna F da planilha MEMORIA
-    For i = 2 To lastRowICMS ' Começando na linha 2 da planilha ICMS
-        wsICMS.Cells(i, 1).Value = Replace(wsICMS.Cells(i, 1).Value, ".", "") ' Remove os pontos
+    For i = 2 To lastRowICMS
+        wsICMS.Cells(i, 1).Value = Replace(wsICMS.Cells(i, 1).Value, ".", "")
     Next i
 
-    For i = 3 To lastRow ' Mudado para começar da linha 3
+    For i = 3 To lastRow
         If wsMemoria.Cells(i, 1).Value <> "" Then
             valorICMS = Application.VLookup(wsMemoria.Cells(i, 1).Value, wsICMS.Range("A2:D" & lastRowICMS), 4, False)
             If Not IsError(valorICMS) Then
-                wsMemoria.Cells(i, 6).Value = valorICMS ' Adiciona o valor encontrado na coluna F
+                wsMemoria.Cells(i, 6).Value = valorICMS
             End If
         End If
     Next i
 
-    ' Adicionando valores da coluna D da planilha IPI na coluna G da planilha MEMORIA
-    For i = 2 To lastRowIPI ' Começando na linha 2 da planilha IPI
-        wsIPI.Cells(i, 1).Value = Replace(wsIPI.Cells(i, 1).Value, ".", "") ' Remove os pontos
+    For i = 2 To lastRowIPI
+        wsIPI.Cells(i, 1).Value = Replace(wsIPI.Cells(i, 1).Value, ".", "")
     Next i
 
-    For i = 3 To lastRow ' Mudado para começar da linha 3
+    For i = 3 To lastRow
         If wsMemoria.Cells(i, 1).Value <> "" Then
             valorIPI = Application.VLookup(wsMemoria.Cells(i, 1).Value, wsIPI.Range("A2:D" & lastRowIPI), 4, False)
             If Not IsError(valorIPI) Then
-                wsMemoria.Cells(i, 7).Value = valorIPI ' Adiciona o valor encontrado na coluna G
+                wsMemoria.Cells(i, 7).Value = valorIPI
             End If
         End If
     Next i
 
-    ' Calculando a subtração de ICMS e IPI na coluna H
-    For i = 3 To lastRow ' Mudado para começar da linha 3
+    For i = 3 To lastRow
         If IsNumeric(wsMemoria.Cells(i, 6).Value) And IsNumeric(wsMemoria.Cells(i, 7).Value) Then
-            wsMemoria.Cells(i, 8).Value = wsMemoria.Cells(i, 6).Value - wsMemoria.Cells(i, 7).Value ' Subtração de F e G
+            wsMemoria.Cells(i, 8).Value = wsMemoria.Cells(i, 6).Value - wsMemoria.Cells(i, 7).Value
         Else
-            wsMemoria.Cells(i, 8).ClearContents ' Garante que a célula fique vazia se não for numérico
+            wsMemoria.Cells(i, 8).ClearContents
         End If
     Next i
 
-    ' Calculando a subtração da coluna H e E na coluna I
-    For i = 3 To lastRow ' Mudado para começar da linha 3
+    For i = 3 To lastRow
         If IsNumeric(wsMemoria.Cells(i, 8).Value) And IsNumeric(wsMemoria.Cells(i, 5).Value) Then
-            wsMemoria.Cells(i, 9).Value = wsMemoria.Cells(i, 8).Value - wsMemoria.Cells(i, 5).Value ' Subtração de H e E
+            wsMemoria.Cells(i, 9).Value = wsMemoria.Cells(i, 8).Value - wsMemoria.Cells(i, 5).Value
         Else
-            wsMemoria.Cells(i, 9).ClearContents ' Garante que a célula fique vazia se não for numérico
+            wsMemoria.Cells(i, 9).ClearContents
         End If
     Next i
 
-    ' Adicionando mensagem na coluna J se encontrar CFOPs específicos
-    For i = 3 To lastRow ' Mudado para começar da linha 3
+    For i = 3 To lastRow
         If Not IsError(Application.Match(wsMemoria.Cells(i, 1).Value, cfopParaVerificar, 0)) Then
             wsMemoria.Cells(i, 10).Value = "Verificar as notas registradas com esta CFOP e variação"
         End If
     Next i
 
-    ' Adicionando mensagem na coluna K se o valor na coluna I for diferente de zero
-    For i = 3 To lastRow ' Mudado para começar da linha 3
+    For i = 3 To lastRow
         If wsMemoria.Cells(i, 9).Value <> 0 Then
             wsMemoria.Cells(i, 11).Value = "Verificar DIFAL. Caso não seja o DIFAL, extraia o relatorio de conferencia dos itens da nota"
         End If
     Next i
 
-    ' Alteração para a coluna D da planilha MEMORIA
-    For i = 3 To lastRow ' Mudado para começar da linha 3
-        Dim valorRef As Variant
+    For i = 3 To lastRow
         valorRef = Application.VLookup(wsMemoria.Cells(i, 1).Value, wsRef.Range("A2:B" & lastRowRef), 2, False)
         
         If Not IsError(valorRef) Then
-            If valorRef <> "" And valorRef = "não" Then
-                If wsMemoria.Cells(i, 4).Value <> 0 Then
-                    wsMemoria.Cells(i, 4).Interior.Color = RGB(255, 182, 193) ' Vermelho claro
-                End If
+            If valorRef = "não" And wsMemoria.Cells(i, 4).Value <> 0 Then
+                wsMemoria.Cells(i, 4).Interior.Color = RGB(255, 182, 193)
             Else
-                wsMemoria.Cells(i, 4).Interior.ColorIndex = xlNone ' Limpa a cor se não for "não"
+                wsMemoria.Cells(i, 4).Interior.ColorIndex = xlNone
             End If
         End If
     Next i
 
-    ' Removendo linhas vazias ou com zero abaixo dos números
-    For i = lastRow To 3 Step -1 ' Inverte a ordem para evitar problemas ao excluir linhas
+    For i = lastRow To 3 Step -1
         If wsMemoria.Cells(i, 1).Value = "" Or wsMemoria.Cells(i, 1).Value = 0 Then
             wsMemoria.Rows(i).Delete
         End If
     Next i
 
-    ' Adicionando filtro no cabeçalho
     wsMemoria.Range("A1:K1").AutoFilter
-
-    ' Ajustando o tamanho das colunas
     wsMemoria.Columns("A").ColumnWidth = 19
     wsMemoria.Columns("B").ColumnWidth = 56
-    wsMemoria.Columns("C").ColumnWidth = 19
-    wsMemoria.Columns("D").ColumnWidth = 19
-    wsMemoria.Columns("E").ColumnWidth = 19
-    wsMemoria.Columns("F").ColumnWidth = 19 ' Ajuste para a coluna F
-    wsMemoria.Columns("G").ColumnWidth = 19 ' Ajuste para a coluna G
-    wsMemoria.Columns("H").ColumnWidth = 19 ' Ajuste para a coluna H
-    wsMemoria.Columns("I").ColumnWidth = 19 ' Ajuste para a coluna I
-    wsMemoria.Columns("J").ColumnWidth = 56 ' Ajuste para a coluna J
-    wsMemoria.Columns("K").ColumnWidth = 56 ' Ajuste para a coluna K
+    wsMemoria.Columns("C:K").ColumnWidth = 19
+    wsMemoria.Columns("J:K").ColumnWidth = 56
 End Sub
+
 
 
 

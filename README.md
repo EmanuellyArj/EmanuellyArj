@@ -109,8 +109,6 @@ RETURN ROUND(MediaVendas * FatorAjuste, 0)
 Calcula a demanda prevista com base na média de vendas, ajustada entre 90% e 120%.
 
 ```DAX
-Copiar
-Editar
 Previsao Demanda = 
 VAR MediaVendas = AVERAGEX(FILTER(ALL('TabelaVendas'), 'TabelaVendas'[SKU] = EARLIER('TabelaVendas'[SKU])), 'TabelaVendas'[Quantidade_Vendida])
 VAR FatorAjuste = RAND() * (1.2 - 0.9) + 0.9

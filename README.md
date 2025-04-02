@@ -78,8 +78,86 @@ Sou uma profissional apaixonada por transformar dados em insights estratégicos,
 <br/>
 
 
-
 # Projetos Desenvolvidos
+
+# 📊 Power BI - Análise de Vendas e Previsão de Demanda
+🚀 Projeto desenvolvido para análise de vendas, estoque e previsão de demanda da empresa Hecke Alimentos.
+
+## 📌 Objetivo do Projeto
+Criar um dashboard interativo no Power BI para:
+- ✔ Analisar vendas e desempenho de produtos.
+- ✔ Monitorar giro de estoque e prever demandas futuras.
+- ✔ Gerar insights estratégicos para otimização de supply chain.
+
+## 📂 Estrutura do Projeto
+- 📁 dados/ → Base de dados em Excel utilizada no projeto.
+- 📁 scripts/ → Códigos Python e DAX para manipulação e análise.
+- 📁 dashboard/ → Arquivo .pbix com o relatório final no Power BI.
+- 📄 README.md → Documentação completa do projeto.
+
+📊 Fórmulas DAX Utilizadas
+1️⃣ Estoque Inicial
+- Calcula o estoque inicial de cada SKU baseado na média de vendas, com um fator de ajuste.
+```DAX
+Estoque Inicial = 
+VAR MediaVendas = AVERAGEX(FILTER(ALL('TabelaVendas'), 'TabelaVendas'[SKU] = EARLIER('TabelaVendas'[SKU])), 'TabelaVendas'[Quantidade_Vendida])
+VAR FatorAjuste = RAND() * (3 - 1.5) + 1.5
+RETURN ROUND(MediaVendas * FatorAjuste, 0)
+
+````
+2️⃣ Previsão de Demanda
+Calcula a demanda prevista com base na média de vendas, ajustada entre 90% e 120%.
+
+```DAX
+Copiar
+Editar
+Previsao Demanda = 
+VAR MediaVendas = AVERAGEX(FILTER(ALL('TabelaVendas'), 'TabelaVendas'[SKU] = EARLIER('TabelaVendas'[SKU])), 'TabelaVendas'[Quantidade_Vendida])
+VAR FatorAjuste = RAND() * (1.2 - 0.9) + 0.9
+RETURN ROUND(MediaVendas * FatorAjuste, 0)
+````
+
+🐍 Código Python Utilizado
+Geração automática das colunas de Estoque Inicial e Previsão de Demanda no Pandas.
+```python
+import pandas as pd
+import numpy as np
+
+# Carregar dados
+df = pd.read_excel("dados/h2.xlsx")
+
+# Criar Estoque Inicial (baseado na média de vendas e multiplicado por um fator aleatório)
+np.random.seed(42)
+df['Estoque_Inicial'] = df.groupby('SKU')['Quantidade_Vendida'].transform(lambda x: round(x.mean() * np.random.uniform(1.5, 3)))
+
+# Criar Previsão de Demanda (média de vendas ajustada entre 90% e 120%)
+df['Previsao_Demanda'] = df.groupby('SKU')['Quantidade_Vendida'].transform(lambda x: round(x.mean() * np.random.uniform(0.9, 1.2)))
+
+# Salvar arquivo atualizado
+df.to_excel("dados/dados_vendas_estoque_previsao.xlsx", index=False)
+````
+
+📊 Dashboard no Power BI
+🔹 Indicadores-Chave (KPIs):
+✔ Faturamento Total
+✔ Ticket Médio por Cliente
+✔ CMV (Custo da Mercadoria Vendida)
+✔ Margem de Lucro Bruta (%)
+✔ Giro de Estoque
+
+##🔹 Principais Análises:
+- 📌 Vendas por Categoria e SKU
+- 📌 Histórico de Vendas por Mês
+- 📌 Projeção de Demanda para os Próximos 6 Meses
+- 📌 Análise de Supply Chain (Estoque vs. Demanda)
+
+##📢 Conclusão
+Este projeto fornece uma visão estratégica e acionável para melhorar a gestão de vendas e estoque da Hecke Alimentos.
+
+##💡 Próximos Passos:
+- ✅ Refinar previsões usando Machine Learning (ARIMA, Prophet).
+- ✅ Integrar com dados financeiros para calcular EBITDA e CMV detalhado.
+- ✅ Implementar automação (RPA) para atualização de dados.
 
 
 # 📊 Automação Contábil para Importações

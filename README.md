@@ -136,12 +136,12 @@ df.to_excel("dados/dados_vendas_estoque_previsao.xlsx", index=False)
 ````
 
 📊 Dashboard no Power BI
-🔹 Indicadores-Chave (KPIs):
-✔ Faturamento Total
-✔ Ticket Médio por Cliente
-✔ CMV (Custo da Mercadoria Vendida)
-✔ Margem de Lucro Bruta (%)
-✔ Giro de Estoque
+- 🔹 Indicadores-Chave (KPIs):
+- ✔ Faturamento Total
+- ✔ Ticket Médio por Cliente
+- ✔ CMV (Custo da Mercadoria Vendida)
+- ✔ Margem de Lucro Bruta (%)
+- ✔ Giro de Estoque
 
 ##🔹 Principais Análises:
 - 📌 Vendas por Categoria e SKU

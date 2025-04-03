@@ -81,7 +81,7 @@ Sou uma profissional apaixonada por transformar dados em insights estratégicos,
 # Projetos Desenvolvidos
 
 # 📊 Power BI - Análise de Vendas e Previsão de Demanda
-🚀 Projeto desenvolvido para análise de vendas, estoque e previsão de demanda da empresa Hecke Alimentos.
+🚀 Projeto desenvolvido para análise de vendas, estoque e previsão de demanda de uma empresa do ramo de Alimentos.
 
 ## 📌 Objetivo do Projeto
 Criar um dashboard interativo no Power BI para:

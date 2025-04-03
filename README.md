@@ -95,6 +95,72 @@ Criar um dashboard interativo no Power BI para:
 - 📁 dashboard/ → Arquivo .pbix com o relatório final no Power BI.
 - 📄 README.md → Documentação completa do projeto.
 
+🐍 Código Python
+Codigo utilizado para criar uma base de dados fictícia estruturada para 4 anos, contendo as tabelas “Fatos_Vendas”, “Produtos”, “Calendário” e “Canais_Regionais”. Esses dados foram elaborados para simular um ambiente real e possibilitar análises robustas no Power BI.
+
+```python
+import pandas as pd
+from datetime import datetime, timedelta
+
+# Create sample data for the sheets
+
+# 1. Fatos_Vendas DataFrame
+data_fatos = [
+    {"Data": "05/01/2022", "Ano": 2022, "Mês": "Janeiro", "Produto_ID": 439, "Produto": "Leite em Pó Integral 200g", "Categoria": "Laticínios", "Subcategoria": "Leite em Pó", "Canal": "B2B", "Região": "Curitiba", "Volume_Vendas": 1000, "Receita (R$)": 50000, "Custo (R$)": 35000, "CMV (%)": 70, "EBITDA (R$)": 15000, "Novo_Lançamento": "Não"},
+    {"Data": "15/02/2022", "Ano": 2022, "Mês": "Fevereiro", "Produto_ID": 956, "Produto": "Leite em Pó Inst. 350g", "Categoria": "Laticínios", "Subcategoria": "Leite em Pó", "Canal": "Varejo", "Região": "Porto Alegre", "Volume_Vendas": 800, "Receita (R$)": 40000, "Custo (R$)": 28000, "CMV (%)": 70, "EBITDA (R$)": 12000, "Novo_Lançamento": "Sim"},
+    {"Data": "10/03/2022", "Ano": 2022, "Mês": "Março", "Produto_ID": 397, "Produto": "Leite em Pó Inst. Vitaminado 350g", "Categoria": "Laticínios", "Subcategoria": "Leite em Pó", "Canal": "FoodService", "Região": "São José do Rio", "Volume_Vendas": 650, "Receita (R$)": 32500, "Custo (R$)": 22750, "CMV (%)": 70, "EBITDA (R$)": 9750, "Novo_Lançamento": "Não"},
+    {"Data": "22/06/2022", "Ano": 2022, "Mês": "Junho", "Produto_ID": 364, "Produto": "Queijo Azul (Capa Azul 2,5Kg)", "Categoria": "Queijos", "Subcategoria": "Queijo Azul", "Canal": "Atacado", "Região": "Curitiba", "Volume_Vendas": 120, "Receita (R$)": 36000, "Custo (R$)": 25200, "CMV (%)": 70, "EBITDA (R$)": 8400, "Novo_Lançamento": "Sim"},
+    {"Data": "05/09/2022", "Ano": 2022, "Mês": "Setembro", "Produto_ID": 978, "Produto": "Queijo Parmesão Arroyo Cabral", "Categoria": "Queijos", "Subcategoria": "Parmesão", "Canal": "B2B", "Região": "Foz do Iguaçu", "Volume_Vendas": 90, "Receita (R$)": 45000, "Custo (R$)": 31500, "CMV (%)": 70, "EBITDA (R$)": 10500, "Novo_Lançamento": "Não"},
+    {"Data": "15/11/2023", "Ano": 2023, "Mês": "Novembro", "Produto_ID": 979, "Produto": "Queijo Cremont 7Kg", "Categoria": "Queijos", "Subcategoria": "Cremont", "Canal": "Varejo", "Região": "Curitiba", "Volume_Vendas": 75, "Receita (R$)": 37500, "Custo (R$)": 26250, "CMV (%)": 70, "EBITDA (R$)": 8750, "Novo_Lançamento": "Sim"},
+    {"Data": "08/01/2023", "Ano": 2023, "Mês": "Janeiro", "Produto_ID": 956, "Produto": "Leite em Pó Inst. 350g", "Categoria": "Laticínios", "Subcategoria": "Leite em Pó", "Canal": "B2B", "Região": "Porto Alegre", "Volume_Vendas": 1200, "Receita (R$)": 60000, "Custo (R$)": 42000, "CMV (%)": 70, "EBITDA (R$)": 18000, "Novo_Lançamento": "Não"},
+    {"Data": "20/04/2023", "Ano": 2023, "Mês": "Abril", "Produto_ID": 364, "Produto": "Queijo Azul (Capa Azul 2,5Kg)", "Categoria": "Queijos", "Subcategoria": "Queijo Azul", "Canal": "FoodService", "Região": "São José do Rio", "Volume_Vendas": 110, "Receita (R$)": 33000, "Custo (R$)": 23100, "CMV (%)": 70, "EBITDA (R$)": 8700, "Novo_Lançamento": "Não"},
+    {"Data": "12/07/2024", "Ano": 2024, "Mês": "Julho", "Produto_ID": 397, "Produto": "Leite em Pó Inst. Vitaminado 350g", "Categoria": "Laticínios", "Subcategoria": "Leite em Pó", "Canal": "Atacado", "Região": "Curitiba", "Volume_Vendas": 950, "Receita (R$)": 47500, "Custo (R$)": 33250, "CMV (%)": 70, "EBITDA (R$)": 11750, "Novo_Lançamento": "Sim"},
+    {"Data": "28/10/2024", "Ano": 2024, "Mês": "Outubro", "Produto_ID": 978, "Produto": "Queijo Parmesão Arroyo Cabral", "Categoria": "Queijos", "Subcategoria": "Parmesão", "Canal": "Varejo", "Região": "Foz do Iguaçu", "Volume_Vendas": 85, "Receita (R$)": 42500, "Custo (R$)": 29750, "CMV (%)": 70, "EBITDA (R$)": 10750, "Novo_Lançamento": "Não"},
+    {"Data": "03/03/2025", "Ano": 2025, "Mês": "Março", "Produto_ID": 979, "Produto": "Queijo Cremont 7Kg", "Categoria": "Queijos", "Subcategoria": "Cremont", "Canal": "B2B", "Região": "Curitiba", "Volume_Vendas": 100, "Receita (R$)": 50000, "Custo (R$)": 35000, "CMV (%)": 70, "EBITDA (R$)": 12000, "Novo_Lançamento": "Sim"},
+    {"Data": "18/05/2025", "Ano": 2025, "Mês": "Maio", "Produto_ID": 956, "Produto": "Leite em Pó Inst. 350g", "Categoria": "Laticínios", "Subcategoria": "Leite em Pó", "Canal": "FoodService", "Região": "Porto Alegre", "Volume_Vendas": 1100, "Receita (R$)": 55000, "Custo (R$)": 38500, "CMV (%)": 70, "EBITDA (R$)": 14500, "Novo_Lançamento": "Não"},
+    {"Data": "30/08/2025", "Ano": 2025, "Mês": "Agosto", "Produto_ID": 364, "Produto": "Queijo Azul (Capa Azul 2,5Kg)", "Categoria": "Queijos", "Subcategoria": "Queijo Azul", "Canal": "Atacado", "Região": "São José do Rio", "Volume_Vendas": 130, "Receita (R$)": 39000, "Custo (R$)": 27300, "CMV (%)": 70, "EBITDA (R$)": 11700, "Novo_Lançamento": "Sim"},
+]
+df_fatos = pd.DataFrame(data_fatos)
+
+# 2. Produtos DataFrame
+data_produtos = [
+    {"Produto_ID": 439, "Produto": "Leite em Pó Integral 200g", "Categoria": "Laticínios", "Subcategoria": "Leite em Pó", "Data_Lancamento": "2020-03-15", "Marca": "Hecke", "Preço_Unitário (R$)": 0.05},
+    {"Produto_ID": 956, "Produto": "Leite em Pó Inst. 350g", "Categoria": "Laticínios", "Subcategoria": "Leite em Pó", "Data_Lancamento": "2021-07-10", "Marca": "Hecke", "Preço_Unitário (R$)": 0.06},
+    {"Produto_ID": 397, "Produto": "Leite em Pó Inst. Vitaminado 350g", "Categoria": "Laticínios", "Subcategoria": "Leite em Pó", "Data_Lancamento": "2022-01-20", "Marca": "Hecke", "Preço_Unitário (R$)": 0.07},
+    {"Produto_ID": 364, "Produto": "Queijo Azul (Capa Azul 2,5Kg)", "Categoria": "Queijos", "Subcategoria": "Queijo Azul", "Data_Lancamento": "2021-05-05", "Marca": "Hecke", "Preço_Unitário (R$)": 30.00},
+    {"Produto_ID": 978, "Produto": "Queijo Parmesão Arroyo Cabral", "Categoria": "Queijos", "Subcategoria": "Parmesão", "Data_Lancamento": "2020-09-25", "Marca": "Hecke", "Preço_Unitário (R$)": 50.00},
+    {"Produto_ID": 979, "Produto": "Queijo Cremont 7Kg", "Categoria": "Queijos", "Subcategoria": "Cremont", "Data_Lancamento": "2022-11-15", "Marca": "Hecke", "Preço_Unitário (R$)": 70.00},
+]
+df_produtos = pd.DataFrame(data_produtos)
+
+# 3. Calendário DataFrame
+# Creating a date range from 01/01/2022 to 31/12/2025
+date_range = pd.date_range(start="2022-01-01", end="2025-12-31", freq="D")
+calendario = pd.DataFrame({"Data": date_range})
+calendario["Ano"] = calendario["Data"].dt.year
+calendario["Mês"] = calendario["Data"].dt.month
+calendario["Nome_Mês"] = calendario["Data"].dt.strftime("%B")
+calendario["Trimestre"] = calendario["Data"].dt.to_period("Q").astype(str)
+
+# 4. Canais_Regionais DataFrame
+data_canais = [
+    {"Canal": "B2B", "Região": "Curitiba", "Meta_Vendas (unid)": 1200, "Responsável Regional": "João da Silva"},
+    {"Canal": "Varejo", "Região": "Porto Alegre", "Meta_Vendas (unid)": 1000, "Responsável Regional": "Maria Oliveira"},
+    {"Canal": "FoodService", "Região": "São José do Rio", "Meta_Vendas (unid)": 900, "Responsável Regional": "Carlos Pereira"},
+    {"Canal": "Atacado", "Região": "Foz do Iguaçu", "Meta_Vendas (unid)": 800, "Responsável Regional": "Fernanda Souza"},
+]
+df_canais = pd.DataFrame(data_canais)
+
+# Write to Excel file with multiple sheets
+output_file = "BaseHeckeAlimentos.xlsx"
+with pd.ExcelWriter(output_file, engine="xlsxwriter") as writer:
+    df_fatos.to_excel(writer, sheet_name="Fatos_Vendas", index=False)
+    df_produtos.to_excel(writer, sheet_name="Produtos", index=False)
+    calendario.to_excel(writer, sheet_name="Calendário", index=False)
+    df_canais.to_excel(writer, sheet_name="Canais_Regionais", index=False)
+
+output_file
+````
 📊 Fórmulas DAX Utilizadas
 1️⃣ Estoque Inicial
 - Calcula o estoque inicial de cada SKU baseado na média de vendas, com um fator de ajuste.
@@ -113,26 +179,6 @@ Previsao Demanda =
 VAR MediaVendas = AVERAGEX(FILTER(ALL('TabelaVendas'), 'TabelaVendas'[SKU] = EARLIER('TabelaVendas'[SKU])), 'TabelaVendas'[Quantidade_Vendida])
 VAR FatorAjuste = RAND() * (1.2 - 0.9) + 0.9
 RETURN ROUND(MediaVendas * FatorAjuste, 0)
-````
-
-🐍 Código Python Utilizado
-Geração automática das colunas de Estoque Inicial e Previsão de Demanda no Pandas.
-```python
-import pandas as pd
-import numpy as np
-
-# Carregar dados
-df = pd.read_excel("dados/h2.xlsx")
-
-# Criar Estoque Inicial (baseado na média de vendas e multiplicado por um fator aleatório)
-np.random.seed(42)
-df['Estoque_Inicial'] = df.groupby('SKU')['Quantidade_Vendida'].transform(lambda x: round(x.mean() * np.random.uniform(1.5, 3)))
-
-# Criar Previsão de Demanda (média de vendas ajustada entre 90% e 120%)
-df['Previsao_Demanda'] = df.groupby('SKU')['Quantidade_Vendida'].transform(lambda x: round(x.mean() * np.random.uniform(0.9, 1.2)))
-
-# Salvar arquivo atualizado
-df.to_excel("dados/dados_vendas_estoque_previsao.xlsx", index=False)
 ````
 
 📊 Dashboard no Power BI

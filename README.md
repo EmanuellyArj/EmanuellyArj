@@ -248,16 +248,16 @@ RETURN ROUND(MediaVendas * FatorAjuste, 0)
 - ✔ Margem de Lucro Bruta (%)
 - ✔ Giro de Estoque
 
-##🔹 Principais Análises:
+## 🔹 Principais Análises:
 - 📌 Vendas por Categoria e SKU
 - 📌 Histórico de Vendas por Mês
 - 📌 Projeção de Demanda para os Próximos 6 Meses
 - 📌 Análise de Supply Chain (Estoque vs. Demanda)
 
-##📢 Conclusão
+## 📢 Conclusão
 Este projeto fornece uma visão estratégica e acionável para melhorar a gestão de vendas e estoque da Hecke Alimentos.
 
-##💡 Próximos Passos:
+## 💡 Próximos Passos:
 - ✅ Refinar previsões usando Machine Learning (ARIMA, Prophet).
 - ✅ Integrar com dados financeiros para calcular EBITDA e CMV detalhado.
 - ✅ Implementar automação (RPA) para atualização de dados.

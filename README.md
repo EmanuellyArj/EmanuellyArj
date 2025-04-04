@@ -162,7 +162,66 @@ with pd.ExcelWriter(output_file, engine="xlsxwriter") as writer:
 output_file
 ````
 📊 Fórmulas DAX Utilizadas
-1️⃣ Estoque Inicial
+
+1️⃣ Receita bruta de vendas
+```DAX
+ReceitaBruta = 
+SUMX(
+    'vendas',
+    'vendas'[Quantidade_Vendida] * 'vendas'[Preco_Venda(R$)]
+)
+
+````
+2️⃣ Margem de lucro
+
+```DAX
+Margem Lucro = 
+AVERAGEX(
+    'vendas',
+    IF(
+        [Preco_Venda(R$)] > 0,
+        ( [Preco_Venda(R$)] - [Preco_Custo(R$)] - [Custo_Logistico(R$)] ) / [Preco_Venda(R$)] * 100,
+        BLANK()
+    )
+)
+````
+
+3️⃣ Volume de Vendas
+
+```DAX
+Volume Vendas = SUM(vendas[Quantidade_Vendida])
+````
+
+4️⃣ CMV
+
+```DAX
+CMV = 
+SUM(vendas[Preco_Custo(R$)]) + SUM(vendas[Custo_Logistico(R$)])
+````
+
+5️⃣ Custo Logistico Total
+
+```DAX
+CustoLogísticoTotal = SUMX('vendas', 'vendas'[Quantidade_Vendida] * 'vendas'[Custo_Logistico(R$)])
+````
+
+6️⃣ Custo Logistico Total
+
+```DAX
+CustoTotal = 
+SUMX(
+    'vendas',
+    ('vendas'[Quantidade_Vendida] * 'vendas'[Preco_Custo(R$)] + 
+    ('vendas'[Quantidade_Vendida] * 'vendas'[Custo_Logistico(R$)]
+)))
+````
+7️⃣ Vendas por cidade
+
+```DAX
+Vendas por Região = SUM(vendas[Quantidade_Vendida])
+````
+
+8️⃣ Estoque Inicial
 - Calcula o estoque inicial de cada SKU baseado na média de vendas, com um fator de ajuste.
 ```DAX
 Estoque Inicial = 
@@ -171,7 +230,7 @@ VAR FatorAjuste = RAND() * (3 - 1.5) + 1.5
 RETURN ROUND(MediaVendas * FatorAjuste, 0)
 
 ````
-2️⃣ Previsão de Demanda
+9️⃣ Previsão de Demanda
 Calcula a demanda prevista com base na média de vendas, ajustada entre 90% e 120%.
 
 ```DAX

@@ -262,6 +262,119 @@ Este projeto fornece uma visão estratégica e acionável para melhorar a gestã
 - ✅ Integrar com dados financeiros para calcular EBITDA e CMV detalhado.
 - ✅ Implementar automação (RPA) para atualização de dados.
 
+# 📊 Planilha de Controle Financeiro Multimoeda
+
+> Projeto desenvolvido com foco em automação de processos financeiros e aplicação de **Excel avançado** para controle de contratos internacionais com variação cambial.
+
+---
+
+## 💼 Sobre o Projeto
+
+Esta planilha foi construída com o objetivo de automatizar o controle contábil de contratos em moeda estrangeira, otimizando o processo de conversão cambial, geração de lançamentos e análise de saldos com base em regras de negócio pré-definidas.
+
+🔍 **Destaques Técnicos**:
+- Fórmulas complexas (ÍNDICE, CORRESP, PROCV, SEERRO, SE, MATRIZ)
+- Lógica condicional avançada
+- Busca dinâmica por data e tipo de lançamento
+- Cálculo de saldos, diferenças e registros contábeis
+- Estrutura modular, fácil de escalar e manter
+
+---
+
+## 🧠 Habilidades Demonstradas
+
+- ✅ **Excel Avançado**: fórmulas aninhadas, funções matriciais, manipulação de dados dinâmicos por data
+- ✅ **Automação Contábil**: geração de lançamentos com lógica baseada em contas contábeis e variação cambial
+- ✅ **Modelagem de Dados**: estruturação das abas como "tabelas relacionais"
+- ✅ **Pensamento analítico**: identificação de regras de negócio e conversão em lógica técnica
+- ✅ **Documentação Técnica Profissional**
+
+---
+
+## 🗂️ Estrutura da Planilha
+
+### 📌 Abas principais
+
+| Aba             | Função Principal                                           |
+|------------------|------------------------------------------------------------|
+| `Dólar`          | Taxas de câmbio (compra e venda) por mês                  |
+| `Conta Contábil` | Mapeia contratos às contas contábeis                      |
+| `Histórico`      | Armazena dados brutos dos contratos                       |
+| `Lançamento`     | Geração automática de lançamentos com base na data        |
+| `Identificador`  | (Em desenvolvimento) controle de contratos já processados |
+
+---
+
+## 🔢 Fórmulas e Automação (Excel Avançado)
+
+### 🎯 Identificação Dinâmica
+
+```excel
+=SEERRO(
+   ÍNDICE(Historico!B:B;
+     MENOR(
+       SE(
+         (TEXTO(Historico!A:A;"mm/aaaa") = TEXTO($G$2;"mm/aaaa")) *
+         (ÉERROS(Historico!P:P) + (Historico!P:P = ""));
+         LIN(Historico!B:B) - LIN(Historico!B$1) + 1;
+         ""
+       );
+       LIN(1:1)
+     )
+   );
+   ""
+````
+🔍 Busca dinamicamente os contratos ainda não liquidados no mês de referência ($G$2)
+
+🔄 Classificação de Ativo ou Passivo
+````
+=SE(N2="ADIANTAMENTO";"ATIVO";SE(OU(N2="FORNECEDOR";N2="FINIMP");"PASSIVO";""))
+````
+
+🧾 Geração de Histórico Descritivo
+excel
+````
+="FORNECEDOR " & PROCV(B7;Historico!B:Q;8;FALSO) & 
+" CONTRATO " & PROCV(B7;Historico!B:Q;3;FALSO) & 
+" INVOICE " & PROCV(B7;Historico!B:Q;4;FALSO) & 
+" REF USD " & C7 & " TAXA USD " & F7 & 
+" = R$ " & ARRED(G7;2)
+````
+
+🧾 Cálculo de Contas Contábeis (Débito / Crédito)
+````
+=SE(
+  H7="ADIANTAMENTO";
+  SE(F7>D7;
+     PROCV(B7;'Conta Contabil'!A:B;2;FALSO);
+     2356
+  );
+  SE(
+     OU(H7="FORNECEDOR"; H7="FINIMP");
+     SE(F7>D7;
+        2356;
+        PROCV(B7;'Conta Contabil'!A:B;2;FALSO)
+     );
+     ""
+  )
+)
+
+````
+
+## 📈 Performance e Escalabilidade
+A planilha processa os dados em até 15 segundos ao mudar o mês de referência (alta carga de fórmulas matriciais)
+
+Estrutura preparada para migração futura para Power Query ou Power BI
+
+Pode ser adaptada para VBA/Macro caso seja necessário integrar com sistemas ou automatizar geração de arquivos
+
+
+## ✅ Conclusão
+Este projeto demonstra a capacidade de aplicar lógica de negócios em Excel avançado, utilizando técnicas de automação, modelagem de dados e otimização de processos.
+
+📎 Ideal para ambientes que ainda utilizam Excel como ferramenta principal de gestão financeira ou contábil, mas com visão de evolução para BI ou ERP.
+
+--
 
 # 📊 Automação Contábil para Importações
 

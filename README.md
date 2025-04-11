@@ -262,7 +262,7 @@ Este projeto fornece uma visão estratégica e acionável para melhorar a gestã
 - ✅ Integrar com dados financeiros para calcular EBITDA e CMV detalhado.
 - ✅ Implementar automação (RPA) para atualização de dados.
 
-
+--
 
 # 📊 Planilha de Controle Financeiro Multimoeda
 

@@ -262,6 +262,8 @@ Este projeto fornece uma visão estratégica e acionável para melhorar a gestã
 - ✅ Integrar com dados financeiros para calcular EBITDA e CMV detalhado.
 - ✅ Implementar automação (RPA) para atualização de dados.
 
+
+
 # 📊 Planilha de Controle Financeiro Multimoeda
 
 > Projeto desenvolvido com foco em automação de processos financeiros e aplicação de **Excel avançado** para controle de contratos internacionais com variação cambial.

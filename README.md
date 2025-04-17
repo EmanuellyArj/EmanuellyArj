@@ -240,7 +240,7 @@ VAR FatorAjuste = RAND() * (1.2 - 0.9) + 0.9
 RETURN ROUND(MediaVendas * FatorAjuste, 0)
 ````
 
-📊 Dashboard no Power BI
+# 📊 Dashboard no Power BI 
 - 🔹 Indicadores-Chave (KPIs):
 - ✔ Faturamento Total
 - ✔ Ticket Médio por Cliente
@@ -263,7 +263,92 @@ Este projeto fornece uma visão estratégica e acionável para melhorar a gestã
 - ✅ Implementar automação (RPA) para atualização de dados.
 
 --
+# Diagnóstico Estratégico 🚴‍♂️📊
 
+### 🎯 Objetivo do Projeto
+Este projeto teve como objetivo realizar uma **análise estratégica baseada em dados operacionais reais de uma empresa do setor esportivo com presença global**.
+
+Desenvolvi um diagnóstico completo com foco em:
+- **Identificar gargalos operacionais**
+- **Aumentar a rentabilidade da empresa**
+- **Gerar planos de ação estratégicos baseados em dados reais**
+
+---
+
+## 📌 Contexto do Case
+Recebi o desafio de apresentar um plano estratégico para a diretoria, utilizando dados históricos de vendas, custos, prazos logísticos e performance por produto, categoria e região.
+
+---
+
+## 🧠 Como Abordei o Problema (Minha Metodologia)
+
+### 1. **Entendimento do Negócio**
+- Analisei os principais KPIs: Vendas Totais, Margem Bruta R$, Margem %, Custo Total e Prazo Médio de Entrega.
+- Relacionei métricas operacionais a metas de negócio: **eficiência, lucratividade e escalabilidade.**
+
+### 2. **Criação de Dashboard Interativo**
+- Desenvolvi um dashboard (Power BI) com foco em:
+  - Evolução de vendas por período
+  - Rentabilidade por produto e categoria
+  - Análise de prazos logísticos por país
+  - Performance por região geográfica
+
+### 3. **Extração de Insights com Foco em Negócio**
+- Identifiquei mais de **R$ 14 milhões** em produtos não rentáveis
+- Observei que produtos com **maior margem estão sendo subexplorados**
+- Detectei **ineficiências logísticas** que afetam a recompra e a experiência do cliente
+
+---
+
+## 📈 Impacto Estratégico (Resultados do Diagnóstico)
+
+| Área                     | Problema Encontrado                                | Solução Proposta                                             |
+|--------------------------|----------------------------------------------------|--------------------------------------------------------------|
+| Rentabilidade            | Margem Bruta de apenas 11%                         | Reestruturação do portfólio e política de preços             |
+| Produtos Deficitários    | Produtos com margens negativas em circulação       | Descontinuidade ou reprecificação baseada em rentabilidade   |
+| Logística Internacional  | Prazo médio de entrega de até 40 dias              | Implementação de hubs logísticos e renegociação com parceiros|
+| Oportunidade Comercial   | Alta dependência de categorias de baixa margem     | Cross-selling com produtos de maior margem e menor giro      |
+| Regionalização           | Vendas concentradas na América do Norte            | Estratégia de expansão geográfica para Europa e Oceania      |
+
+---
+
+## 📊 Ferramentas Utilizadas
+
+- **Power BI** – Criação de dashboards e visualizações interativas
+- **Excel** – Tratamento e organização de dados brutos
+- **Storytelling com Dados** – Estrutura de apresentação executiva com foco em tomada de decisão
+- **Modelagem de KPI** – Margem Bruta, Prazo Médio, Custo Total, Rentabilidade por Produto
+
+---
+
+## 📘 Entregáveis
+
+- 📎 [Relatório Estratégico Completo - PDF](link-aqui)
+- 📊 [Dashboard Interativo (imagem)](link-aqui)
+- 📂 Diagnóstico com storytelling para diretoria
+- 📈 Plano de ação com foco em impacto financeiro e escalabilidade
+
+---
+
+## 🚀 Aprendizados e Soft Skills Demonstradas
+
+- **Pensamento Estratégico**: Conectei dados operacionais a decisões de alto impacto.
+- **Orientação a Resultados**: O foco sempre foi gerar valor para o negócio.
+- **Comunicação Executiva**: Entreguei storytelling claro para públicos não técnicos.
+- **Domínio de KPIs**: Trabalhei com os indicadores que realmente importam para o negócio.
+
+---
+
+## 💼 Como esse projeto gera valor para empresas?
+
+Este projeto mostra como posso:
+
+- **Apoiar a liderança na tomada de decisão com base em dados reais**
+- **Criar relatórios estratégicos acionáveis, não apenas informativos**
+- **Elevar a performance de times comerciais, de produto e logística**
+- **Fazer diagnósticos críticos e gerar planos estratégicos com ROI positivo**
+
+--
 # 📊 Planilha de Controle Financeiro Multimoeda
 
 > Projeto desenvolvido com foco em automação de processos financeiros e aplicação de **Excel avançado** para controle de contratos internacionais com variação cambial.

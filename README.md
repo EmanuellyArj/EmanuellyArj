@@ -263,7 +263,7 @@ Este projeto fornece uma visão estratégica e acionável para melhorar a gestã
 - ✅ Implementar automação (RPA) para atualização de dados.
 
 --
-# Diagnóstico Estratégico 🚴‍♂️📊
+# Transformando Dados em Estratégia: Diagnóstico Operacional🚴‍♂️📊
 
 ### 🎯 Objetivo do Projeto
 Este projeto teve como objetivo realizar uma **análise estratégica baseada em dados operacionais reais de uma empresa do setor esportivo com presença global**.

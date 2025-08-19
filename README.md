@@ -80,12 +80,11 @@ Sou uma profissional apaixonada por transformar dados em insights estratégicos,
 
 # Projetos Desenvolvidos
 
+
 # 📌 Automação de Processos Fiscais com Python
 
 ## 🎯 Objetivo do Projeto
 Desenvolver uma automação inteligente para otimizar o processamento de notas fiscais em um ERP contábil, reduzindo erros humanos, eliminando tarefas repetitivas e acelerando a entrega dos fechamentos fiscais mensais.
-
----
 
 ## 🏢 Contexto
 No ambiente contábil/fiscal, grande parte do tempo da equipe era consumida por tarefas manuais, como:
@@ -97,8 +96,6 @@ No ambiente contábil/fiscal, grande parte do tempo da equipe era consumida por 
 
 👉 Esse processo era **manual, lento e sujeito a falhas humanas**.
 
----
-
 ## 🔎 Metodologia
 A solução foi estruturada em **módulos de automação**, com foco em confiabilidade e robustez:
 
@@ -108,7 +105,6 @@ A solução foi estruturada em **módulos de automação**, com foco em confiabi
 - **Interface gráfica**: construída em Tkinter + ttk + tkcalendar para permitir que colaboradores executem a automação sem conhecimento técnico.  
 - **Estrutura modular**: funções independentes para leitura de notas, correção de foco, preenchimento de campos e monitoramento de permissões.  
 
----
 
 ## 📊 Resultado e Impacto
 - ⏱ **Redução de ~70%** no tempo de execução das rotinas fiscais manuais.  
@@ -116,7 +112,6 @@ A solução foi estruturada em **módulos de automação**, com foco em confiabi
 - 📈 **Aumento da produtividade** da equipe contábil, liberando tempo para análises de maior valor agregado.  
 - 🔄 **Processos padronizados e repetíveis**, garantindo consistência entre diferentes empresas atendidas pelo escritório.  
 
----
 
 ## 🛠 Ferramentas Utilizadas
 - **Python** – automação, OCR e GUI  
@@ -125,7 +120,6 @@ A solução foi estruturada em **módulos de automação**, com foco em confiabi
 - **Tkinter + ttk + tkcalendar** – interface gráfica amigável  
 - **OpenPyXL** – manipulação de planilhas Excel com lista de empresas  
 
----
 
 ## 📦 Entregáveis
 - ✅ Script Python de automação modularizado  
@@ -133,7 +127,6 @@ A solução foi estruturada em **módulos de automação**, com foco em confiabi
 - ✅ Documentação técnica de uso  
 - ✅ Demonstração de execução em ambiente real (gif/vídeo de tela)  
 
----
 
 ## 🤝 Soft Skills Demonstradas
 - **Resolução de problemas complexos** – transformação de um processo 100% manual em um fluxo automatizado robusto.  
@@ -142,7 +135,6 @@ A solução foi estruturada em **módulos de automação**, com foco em confiabi
 - **Comunicação e didática** – documentação clara e GUI para que não-técnicos utilizem a solução.  
 - **Gestão de tempo e priorização** – desenvolvimento em paralelo à operação do setor.  
 
----
 
 ## 💡 Valor Gerado para a Empresa
 Este projeto agregou **eficiência operacional e confiabilidade** ao processo contábil-fiscal, permitindo:
@@ -150,6 +142,7 @@ Este projeto agregou **eficiência operacional e confiabilidade** ao processo co
 - 📌 Maior capacidade de atendimento a clientes **sem aumentar o número de colaboradores**.  
 - 📌 Menor risco de multas e retrabalhos por erros de digitação ou esquecimento de notas.  
 - 📌 **Escalabilidade**: a automação pode ser aplicada a múltiplas empresas sem alteração do código.  
+
 
 
 # 📊 Power BI - Análise de Vendas e Previsão de Demanda

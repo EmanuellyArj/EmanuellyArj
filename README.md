@@ -1,8 +1,11 @@
 # 👩🏻‍💻 Emanuelly Araújo
 
-**`Analista de Dados`**
+**`Desenvolvimento de Software, Automação e Análise de Dados`**
 
-Sou uma profissional apaixonada por transformar dados em insights estratégicos, com uma trajetória que une formações e experiências complementares. Minha base acadêmica em Ciências Econômicas e Administração, obtida na UFPR, aliada a um MBA em Finanças e à especialização em Data Science, me proporciona uma visão única e integrada dos negócios. Essa combinação não convencional me permite entender, de forma holística, tanto os desafios operacionais quanto as oportunidades estratégicas que os dados oferecem. Ao longo da minha carreira, tenho atuado na transformação digital de processos, integrando sistemas e criando soluções inovadoras que conectam áreas diversas e promovem uma cultura orientada por dados.
+Profissional orientada à resolução de problemas complexos por meio de **dados, automação e tecnologia**.  
+Minha trajetória combina formações em **Ciências Econômicas, Administração, MBA em Finanças e Data Science**, o que me permite atuar com uma visão **técnica e estratégica de negócios**.
+
+Tenho experiência prática na **transformação digital de processos**, automação de rotinas críticas, integração de sistemas e construção de soluções que reduzem custo operacional, erros humanos e aumentam a escalabilidade das operações.
 
 ---
 
@@ -80,8 +83,142 @@ Sou uma profissional apaixonada por transformar dados em insights estratégicos,
 
 # Projetos Desenvolvidos
 
+# 📌 RPA para Lançamentos Contábeis em ERP
 
-# 📌 Automação de Processos Fiscais com Python
+## 🎯 Objetivo
+Desenvolver um Robô de Automação de Processos (RPA) em Python para realizar lançamentos e baixas contábeis automáticas em um ERP, a partir da verificação de relatórios financeiros, reduzindo erros humanos, retrabalho operacional e o tempo de fechamento contábil.
+
+---
+
+## 🏢 Contexto
+Em ambientes contábeis, o processo de lançamento financeiro normalmente envolve:
+
+- Abertura manual do ERP  
+- Navegação entre módulos e relatórios  
+- Identificação visual de lançamentos pendentes  
+- Digitação manual de valores, contas e datas  
+- Baixa manual dos lançamentos na contabilidade  
+
+Esse fluxo é repetitivo, sujeito a falhas humanas e pouco escalável.
+
+---
+
+## 💡 Solução
+Este projeto implementa um RPA em Python capaz de executar o fluxo completo de forma automatizada:
+
+1. Abre o ERP e realiza autenticação do usuário  
+2. Acessa relatórios financeiros (contas a pagar/receber ou lançamentos pendentes)  
+3. Identifica registros que exigem lançamento contábil  
+4. Efetua os lançamentos automaticamente no ERP  
+5. Realiza a baixa dos valores na contabilidade  
+6. Gera logs detalhados para auditoria e controle  
+
+---
+
+## 🧠 Arquitetura da Automação
+
+### 🔹 Inicialização do ERP
+- Abertura automática do sistema  
+- Login controlado por variáveis de ambiente  
+- Validação do carregamento da tela principal  
+
+### 🔹 Verificação de Relatórios
+- Navegação automatizada até os relatórios financeiros  
+- Leitura de dados via:
+  - Exportação para Excel (quando disponível)  
+  - OCR (quando o ERP não permite exportação)  
+
+### 🔹 Validação de Dados
+Antes do lançamento, o robô valida:
+- Existência de valor válido  
+- Data dentro do período contábil  
+- Conta contábil configurada  
+- Prevenção de lançamentos duplicados  
+
+### 🔹 Lançamento Contábil
+- Preenchimento automático dos campos:
+  - Conta contábil  
+  - Valor  
+  - Data  
+  - Histórico  
+- Confirmação do lançamento  
+- Tratamento de avisos e mensagens do ERP  
+
+### 🔹 Baixa Contábil
+- Acesso à rotina de baixa  
+- Conferência automática do valor  
+- Confirmação da baixa no sistema  
+
+### 🔹 Logs e Auditoria
+- Registro individual por lançamento  
+- Log de erros, exceções e avisos  
+- Resumo final da execução  
+
+---
+
+## 📊 Resultados
+- Redução de até 80% no tempo gasto com lançamentos manuais  
+- Diminuição significativa de erros operacionais  
+- Redução de retrabalho no fechamento contábil  
+- Maior confiabilidade nos dados financeiros  
+
+---
+
+## 🛠 Tecnologias Utilizadas
+- Python  
+- PyAutoGUI  
+- PyTesseract + Tesseract OCR  
+- OpenPyXL / Pandas  
+- Tkinter  
+- Logging  
+
+---
+
+## 📦 Estrutura do Projeto
+rpa-lancamentos-contabeis/
+│
+├── src/
+│ ├── main.py
+│ ├── erp_controller.py
+│ ├── relatorios.py
+│ ├── lancamentos.py
+│ ├── baixas.py
+│ └── logger.py
+│
+├── docs/
+│ └── fluxo_automacao.png
+│
+├── requirements.txt
+├── README.md
+└── .gitignore
+
+---
+
+## ⚠️ Observações
+- Credenciais e dados sensíveis foram removidos  
+- Código adaptado para fins de portfólio  
+- ERP tratado como sistema legado (sem API)  
+- Automação baseada em interface gráfica e OCR  
+
+---
+
+## 💡 Valor Gerado
+Esta automação permite:
+- Escalar lançamentos contábeis sem aumento de equipe  
+- Reduzir riscos de erros e inconsistências financeiras  
+- Padronizar processos críticos  
+- Acelerar o fechamento contábil mensal  
+
+---
+
+## 🧠 O que este projeto demonstra
+- Automação de sistemas legados  
+- Controle de fluxo e validação de dados  
+- Pensamento analítico aplicado a processos reais  
+- Preocupação com auditoria e confiabilidade  
+
+
+**# 📌 Automação de Processos Fiscais com Python
 
 ## 🎯 Objetivo do Projeto
 Desenvolver uma automação inteligente para otimizar o processamento de notas fiscais em um ERP contábil, reduzindo erros humanos, eliminando tarefas repetitivas e acelerando a entrega dos fechamentos fiscais mensais.
@@ -141,8 +278,7 @@ Este projeto agregou **eficiência operacional e confiabilidade** ao processo co
 
 - 📌 Maior capacidade de atendimento a clientes **sem aumentar o número de colaboradores**.  
 - 📌 Menor risco de multas e retrabalhos por erros de digitação ou esquecimento de notas.  
-- 📌 **Escalabilidade**: a automação pode ser aplicada a múltiplas empresas sem alteração do código.  
-
+- 📌 **Escalabilidade**: a automação pode ser aplicada a múltiplas empresas sem alteração do código.  **
 
 
 # 📊 Power BI - Análise de Vendas e Previsão de Demanda
